@@ -9,14 +9,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\wallet;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'email',
+        'fisrtname',
+        'mobile',
         'password',
     ];
 
@@ -32,6 +33,6 @@ class User extends Authenticatable
 
     public function wallet(): HasOne
     {
-        return $this->hasOne(Wallet::class);
+        return $this->hasOne(Wallet::class, 'user')->withDefault();
     }
 }
