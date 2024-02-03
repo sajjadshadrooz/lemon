@@ -7,18 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Wallet extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'active',
+    ];
+
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class); 
+        return $this->belongsTo(User::class, 'user'); 
     }
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class); 
+        return $this->hasMany(Transaction::class, 'transaction'); 
     }
 }
