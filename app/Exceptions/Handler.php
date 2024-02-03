@@ -27,21 +27,21 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $error)
-    {
+    // public function render($request, Throwable $error)
+    // {
         
-        if($error instanceof ModelNotFoundException){
-            return $this->errorResponser(404, $error->getMessage());
-        }
+    //     if($error instanceof ModelNotFoundException){
+    //         return $this->errorResponser(404, $error->getMessage());
+    //     }
         
-        if($error instanceof NotFoundHttpException){
-            return $this->errorResponser(404, $error->getMessage());
-        }
+    //     if($error instanceof NotFoundHttpException){
+    //         return $this->errorResponser(404, $error->getMessage());
+    //     }
 
-        if(config('app.debug'))
-        {
-            return $this->errorResponser(500, $error->getMessage());
-        }
-        return $this->errorResponser(500, 'Somethings got wrong in server.');
-    }
+    //     if(config('app.debug'))
+    //     {
+    //         return $this->errorResponser(500, $error->getMessage());
+    //     }
+    //     return $this->errorResponser(500, 'Somethings got wrong in server.');
+    // }
 }
