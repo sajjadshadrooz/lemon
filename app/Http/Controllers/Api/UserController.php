@@ -9,16 +9,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-
     use ApiResponser;
-
     public function index()
     {
         $users = User::all();
         return $this->successResponser(UserResource::collection($users) ,200);
+    }
+
+    public function profile(Request $request)
+    {
+        $validation = Validator::make($request->all(),[
+            'mobile' => 'required|exists:users,mobile',
+        ]);
+
+        if($validation->fails()){
+            return $this->errorResponser(400, $validation->messages());
+        }
+
+        $users = User::where('mobile', $request->mobile)->first();
+        return $this->successResponser(new UserResource($users) ,200);
     }
     
     public function store(Request $request)
@@ -26,7 +39,7 @@ class UserController extends Controller
 
         $validation = Validator::make($request->all(),[
             'mobile' => 'required|string|max:15',
-            'password' => 'required',
+            'password' => 'required|max:50',
             'email' => 'email|max:50',
             'firstname' => 'string|max:50',
             'lastname' => 'string|max:50',
@@ -40,6 +53,8 @@ class UserController extends Controller
             return $this->errorResponser(400, 'This mobile number is registed before.');
         }
 
+        DB::beginTransaction();
+
         $user = User::create([
             'mobile' => $request->mobile,
             'password' => $request->password,
@@ -48,13 +63,13 @@ class UserController extends Controller
             'lastname' => $request->lastName,
             'username' => $request->userName
         ]);
-
-        $user->save();
         
         $user->wallet()->create([
             'blance' => 0,
             'active' => true,
         ]);
+
+        DB::commit();
 
         return $this->successResponser(new UserResource($user) ,201);
     }
@@ -63,18 +78,4 @@ class UserController extends Controller
     {
         return $this->successResponser(new UserResource($user) ,200);
     }
-    
-    // public function update(Request $request, User $user)
-    // {
-    //     $user->update($request->all());
-    
-    //     return response()->json($user);
-    // }
-    
-    // public function destroy(User $user)
-    // {
-    //     $user->delete();
-    
-    //     return response()->json(null, 204);
-    // }
 }

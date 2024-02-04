@@ -18,7 +18,7 @@ class Wallet extends Model
         'active',
     ];
 
-    public function user(): BelongsTo
+    public function userPointer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user'); 
     }

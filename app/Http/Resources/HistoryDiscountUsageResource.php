@@ -11,8 +11,8 @@ class HistoryDiscountUsageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'wallet' => new WalletResource($this->wallet),
-            'user' => new UserResource($this->wallet()->user),
+            'user' => $this->walletPointer->userPointer->mobile,
+            'discount' => $this->discountPointer->code,
             'status' => $this->status,
             'created_at' => $this->created_at,
         ];

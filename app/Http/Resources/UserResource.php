@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Http\Resources\WalletResource;
+use App\Http\Resources\TransactionResource;
 
 class UserResource extends JsonResource
 {
@@ -19,6 +20,7 @@ class UserResource extends JsonResource
             'mobile' => $this->mobile,
             'email' => $this->email,
             'wallet' => new WalletResource($this->wallet),
+            'transactions'=> TransactionResource::collection($this->wallet->transactions),
         ];
     }
 }

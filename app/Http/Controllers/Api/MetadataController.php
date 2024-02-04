@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class MetadataController extends Controller
 {
-
     use ApiResponser;
-
     public function index()
     {
         $metadatas = Metadatas::all();
