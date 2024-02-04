@@ -51,6 +51,7 @@ class applyDiscount implements ShouldQueue
                     'status' => false,
                     'created_at' => $action_at
                 ]);
+                DB::commit();
                 return;
             }
             else if($max_usage != null && $max_usage <= $count_usage)
@@ -61,6 +62,7 @@ class applyDiscount implements ShouldQueue
                     'status' => false,
                     'created_at' => $action_at
                 ]);
+                DB::commit();
                 return;
             }
             else if($max_capacity != null && $max_capacity <= $count_capacity)
@@ -71,24 +73,25 @@ class applyDiscount implements ShouldQueue
                     'status' => false,
                     'created_at' => $action_at
                 ]);
+                DB::commit();
                 return;
             }
 
-            if($this->discount->type == 6)
+            if($this->discount->type == 1)
             {
                 $wallet->balance = $wallet->balance + $this->discount->amount;
                 $wallet->save();
 
-                $historyDiscount = HistoryDiscountUsage::create([
+                HistoryDiscountUsage::create([
                     'wallet' => $wallet->id,
                     'discount' => $this->discount->id,
                     'status' => true,
                     'created_at' => $action_at
                 ]);
 
-                $transaction = Transaction::create([
+                Transaction::create([
                     'wallet' => $wallet->id,
-                    'type' => 6,
+                    'type' => 1,
                     'amount' => $this->discount->amount,
                     'balance' => $wallet->balance,
                     'from' => 'system',

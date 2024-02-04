@@ -19,12 +19,12 @@ class HistoryDiscountUsage extends Model
 
     public $timestamps = false;
 
-    public function discount(): BelongsTo
+    public function discountPointer(): BelongsTo
     {
         return $this->belongsTo(Discount::class, 'discount');
     }
 
-    public function wallet(): BelongsTo
+    public function walletPointer(): BelongsTo
     {
         return $this->belongsTo(Wallet::class, 'wallet');
     }

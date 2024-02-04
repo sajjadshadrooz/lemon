@@ -13,9 +13,7 @@ use Carbon\Carbon;
 
 class WalletController extends Controller
 {
-
     use ApiResponser;
-
     public function index()
     {
         $wallets = Wallet::all();

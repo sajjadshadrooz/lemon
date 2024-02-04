@@ -58,10 +58,8 @@ class DiscountController extends Controller
                     :null,
             'max_usage' => $request->max_usage?$request->max_usage:1,
             'max_capacity' => $request->max_capacity,
-            'type' => $request->type
+            'type' => 'required|integer'
         ]);
-
-        $discount->save();
         
         return $this->successResponser( new DiscountResource($discount) ,201);
     }
@@ -80,10 +78,7 @@ class DiscountController extends Controller
             'expire_at' => 'date_format:Y-m-d H:i:s',
             'max_usage' => 'integer|min:1',
             'max_capacity' => 'integer|min:1',
-            'type' => [
-                'required|integer',
-                Rule::in(Metadatas::where('code','discount_type')->subMetadatas()),
-            ],
+            'type' => 'required|integer',
         ]);
 
         if($validation->fails())
