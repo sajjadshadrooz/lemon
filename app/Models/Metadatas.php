@@ -21,12 +21,12 @@ class Metadatas extends Model
 
     public function child(): HasMany
     {
-        return $this->hasMany(Metadatas::class, 'parent');
+        return $this->hasMany(self::class, 'parent');
     }
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Metadatas::class, 'parent');
+        return $this->belongsTo(self::class, 'parent');
     }
 
     public function subMetadatas(): HasMany

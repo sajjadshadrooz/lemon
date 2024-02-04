@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('wallet')->index()->unique();
-            $table->unsignedBigInteger('type')->index()->unique();
+            $table->unsignedBigInteger('wallet')->index();
+            $table->unsignedBigInteger('type')->index();
             $table->bigInteger('amount');
             $table->bigInteger('balance');
             $table->string('from', 50)->nullable();

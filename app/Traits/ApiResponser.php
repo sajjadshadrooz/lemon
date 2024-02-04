@@ -14,6 +14,14 @@ Trait ApiResponser
         ], $code);
     }
 
+    protected function successWithoutDataResponser($code, $message=null)
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+        ], $code);
+    }
+
     protected function errorResponser($code, $message=null)
     {
         return response()->json([

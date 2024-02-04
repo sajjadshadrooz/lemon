@@ -6,16 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('history_discount_usages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('discount')->index();
             $table->unsignedBigInteger('wallet')->index();
+            $table->boolean('status')->default(false);
             $table->timestamp('created_at');
+
+            $table->foreign('discount')->references('id')->on('discounts');
+            $table->foreign('wallet')->references('id')->on('wallets');
         });
     }
 
