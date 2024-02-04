@@ -16,7 +16,6 @@ class MetadatasResource extends JsonResource
             'code' => $this->code,
             'title' => $this->title,
             'comment' => $this->comment,
-            'parent' => $this->parent,
             'subMetadatas' => SubMetadatasResource::collection($this->subMetadatas),
         ];
     }

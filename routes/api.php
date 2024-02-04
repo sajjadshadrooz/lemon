@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DiscountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,11 @@ Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('wallets', [WalletController::class, 'index']);
 Route::put('wallets/{wallet}', [WalletController::class, 'update']);
 Route::get('wallets/{wallet}', [WalletController::class, 'show']);
+
+// Discount Controller
+Route::get('discounts', [DiscountController::class, 'index']);
+Route::post('discounts', [DiscountController::class, 'store']);
+Route::post('discounts/apply', [DiscountController::class, 'apply']);
+Route::get('discounts/{discount}', [DiscountController::class, 'show']);
+Route::put('discounts/{discount}', [DiscountController::class, 'update']);
+Route::delete('discounts/{discount}', [DiscountController::class, 'destroy']);
